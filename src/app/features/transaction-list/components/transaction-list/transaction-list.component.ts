@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Transaction } from '../../models/transaction.model';
+import { TransactionListModel } from 'src/app/core/models/transaction-list.model';
+import { TransactionService } from 'src/app/core/services/transaction.service';
 
 @Component({
   selector: 'app-list',
@@ -10,9 +11,11 @@ import { Transaction } from '../../models/transaction.model';
 export class TransactionListComponent implements OnInit {
   checked = false;
   indeterminate = false;
-  listOfCurrentPageData: ReadonlyArray<Transaction> = [];
-  listOfData: ReadonlyArray<Transaction> = [];
+  listOfCurrentPageData: ReadonlyArray<TransactionListModel> = [];
+  listOfData: ReadonlyArray<TransactionListModel> = [];
   setOfCheckedId = new Set<number>();
+
+  constructor(private transactionService: TransactionService) {}
 
   updateCheckedSet(id: number, checked: boolean): void {
     if (checked) {
@@ -22,17 +25,16 @@ export class TransactionListComponent implements OnInit {
     }
   }
 
+  onItemRemove() {
+    this.transactionService.remove();
+  }
+
   onItemChecked(id: number, checked: boolean): void {
     this.updateCheckedSet(id, checked);
     this.refreshCheckedStatus();
   }
 
-  // onAllChecked(value: boolean): void {
-  //   this.listOfCurrentPageData.forEach(item => this.updateCheckedSet(item.id, value));
-  //   this.refreshCheckedStatus();
-  // }
-
-  onCurrentPageDataChange($event: ReadonlyArray<Transaction>): void {
+  onCurrentPageDataChange($event: ReadonlyArray<TransactionListModel>): void {
     this.listOfCurrentPageData = $event;
     this.refreshCheckedStatus();
   }
@@ -43,13 +45,7 @@ export class TransactionListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listOfData = new Array(20).fill(0).map((_, index) => {
-      return {
-        id: index,
-        date: Date.now(),
-        currency: 'xyz',
-        amount: 10 + index
-      };
-    });
+    this.transactionService.getList();
+    this.listOfData = this.transactionService.getList();
   }
 }

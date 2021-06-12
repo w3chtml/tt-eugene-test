@@ -4,7 +4,7 @@
 </p>
 
 <div nz-row>
-    <div nz-col nzSpan="12" nzOffset="6">
+    <div nz-col nzSpan="16" nzOffset="4">
 
       <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
         <nz-form-item>
@@ -32,7 +32,7 @@
                   <nz-option nzLabel="TZX" nzValue="TZX"></nz-option>
                 </nz-select>
               </ng-template>
-              <input formControlName="amount" id="'amount'" nz-input />
+              <input formControlName="amount" id="'amount'" nz-input type="number" />
             </nz-input-group>
           </nz-form-control>
         </nz-form-item>

@@ -23,7 +23,7 @@
             <td>{{ data.currency }}</td>
             <td>{{ data.amount }}</td>
             <td>
-                <button nz-button nzSize="large"><i nz-icon nzType="delete"></i></button>
+                <button (click)="onItemRemove()" nz-button nzSize="large"><i nz-icon nzType="delete"></i></button>
             </td>
         </tr>
     </tbody>
