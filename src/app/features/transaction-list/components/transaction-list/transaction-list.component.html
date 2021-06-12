@@ -1,3 +1,33 @@
 <h2>transaction list</h2>
 
-<button routerLink="/create" >Create</button>
+<p>
+    <button routerLink="/create" nz-button nzType="primary">Create</button>
+</p>
+
+<nz-table #rowSelectionTable nzShowSizeChanger [nzData]="listOfData" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+    <thead>
+        <tr>
+            <th [(nzChecked)]="checked" ></th>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Currency</th>
+            <th>Amount</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of rowSelectionTable.data">
+            <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+            <td>{{ data.ide }}</td>
+            <td>{{ data.date }}</td>
+            <td>{{ data.currency }}</td>
+            <td>{{ data.amount }}</td>
+            <td>
+                <button nz-button nzType="primary" nzSize="large">
+                    <i nz-icon nzType="delete"></i>
+                    A
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>

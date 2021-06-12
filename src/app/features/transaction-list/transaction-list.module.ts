@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { NzTableModule } from 'ng-zorro-antd/table';
+
 import { TransactionListRoutingModule } from './transaction-list.routing.module';
 import { TransactionListComponent } from './components/transaction-list/transaction-list.component';
 
@@ -10,7 +12,10 @@ import { TransactionListComponent } from './components/transaction-list/transact
     TransactionListComponent
   ],
   imports: [
+
     TransactionListRoutingModule,
+
+    NzTableModule,
 
     FormsModule,
     CommonModule
