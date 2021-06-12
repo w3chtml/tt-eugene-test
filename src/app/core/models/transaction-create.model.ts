@@ -1,4 +1,6 @@
 export interface TransactionCreateModel {
+    id?: number;
+    date?: number;
     acc: string;
     amount: number;
     currency: string;

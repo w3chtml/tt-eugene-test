@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { TransactionService } from '@core/services/transaction.service';
 import { accountList } from '@core/models/lists/account.list';
@@ -19,7 +20,7 @@ export class TransactionCreateComponent implements OnInit {
   currencies: StaticListModel[] = [];
   destinations: StaticListModel[] = [];
 
-  constructor(private fb: FormBuilder, private transactionService: TransactionService) {
+  constructor(private fb: FormBuilder, private transactionService: TransactionService, private router: Router) {
     this.accounts = accountList;
     this.currencies = currencyList;
     this.destinations = destinationList;
@@ -30,8 +31,9 @@ export class TransactionCreateComponent implements OnInit {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
     }
-    console.log('validateForm: ', this.validateForm.value);
+    // console.log('validateForm: ', this.validateForm.value);
     this.transactionService.create(this.validateForm.value);
+    this.router.navigate(['list']);
   }
 
   get metadata() {

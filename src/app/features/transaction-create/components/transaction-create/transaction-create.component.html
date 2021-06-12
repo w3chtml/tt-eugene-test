@@ -58,13 +58,13 @@
                 <div nz-row *ngFor="let metadataItem of metadata.controls; index as i">
                     <ng-container [formGroupName]="i">
                         <div nz-col nzSpan="8">
-                            <input nz-input formControlName="keyData" placeholder="Key #{{i+1}}" />
+                            <input #keyItem nz-input formControlName="keyData" placeholder="Key #{{i+1}}" />
                         </div>
                         <div nz-col nzSpan="8" nzOffset="2">
-                            <input nz-input formControlName="valueData" placeholder="Value #{{i+1}}"/>
+                            <input #valueItem nz-input formControlName="valueData" placeholder="Value #{{i+1}}"/>
                         </div>
                         <div nz-col nzSpan="4" nzOffset="2" class="right">
-                            <button nz-button nzType="primary" ><i nz-icon nzType="delete"></i></button>
+                            <button [disabled]="!keyItem.value || !valueItem.value" nz-button nzType="primary" ><i nz-icon nzType="delete"></i></button>
                         </div>
                     </ng-container>
                 </div>

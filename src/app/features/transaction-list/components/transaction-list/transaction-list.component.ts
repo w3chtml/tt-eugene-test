@@ -25,8 +25,9 @@ export class TransactionListComponent implements OnInit {
     }
   }
 
-  onItemRemove() {
-    this.transactionService.remove();
+  onItemRemove(id: number) {
+    this.transactionService.remove(id);
+    this.listOfData = this.transactionService.getList();
   }
 
   onItemChecked(id: number, checked: boolean): void {
@@ -45,7 +46,6 @@ export class TransactionListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.transactionService.getList();
     this.listOfData = this.transactionService.getList();
   }
 }

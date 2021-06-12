@@ -18,12 +18,12 @@
     <tbody>
         <tr *ngFor="let data of rowSelectionTable.data">
             <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
-            <td>{{ data.ide }}</td>
+            <td>{{ data.id }}</td>
             <td>{{ data.date }}</td>
             <td>{{ data.currency }}</td>
             <td>{{ data.amount }}</td>
             <td>
-                <button (click)="onItemRemove()" nz-button nzSize="large"><i nz-icon nzType="delete"></i></button>
+                <button (click)="onItemRemove(data.id)" nz-button nzSize="large"><i nz-icon nzType="delete"></i></button>
             </td>
         </tr>
     </tbody>
