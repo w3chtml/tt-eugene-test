@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TransactionService } from 'src/app/core/services/transaction.service';
+
+import { TransactionService } from '@core/services/transaction.service';
+import { accountList } from '@core/models/lists/account.list';
+import { currencyList } from '@core/models/lists/currencies.list';
+import { destinationList } from '@core/models/lists/destination.list';
+import { StaticListModel } from '@core/models/list.model';
+
 
 @Component({
   selector: 'app-create',
@@ -9,8 +15,15 @@ import { TransactionService } from 'src/app/core/services/transaction.service';
 })
 export class TransactionCreateComponent implements OnInit {
   validateForm!: FormGroup;
+  accounts: StaticListModel[] = [];
+  currencies: StaticListModel[] = [];
+  destinations: StaticListModel[] = [];
 
-  constructor(private fb: FormBuilder, private transactionService: TransactionService) {}
+  constructor(private fb: FormBuilder, private transactionService: TransactionService) {
+    this.accounts = accountList;
+    this.currencies = currencyList;
+    this.destinations = destinationList;
+  }
 
   submitForm(): void {
     for (const i in this.validateForm.controls) {
@@ -25,13 +38,11 @@ export class TransactionCreateComponent implements OnInit {
     return this.validateForm.get('metadata') as FormArray;
   }
 
-
-
   ngOnInit(): void {
     this.validateForm = this.fb.group({
       acc: [null, [Validators.required]],
       amount: [null, [Validators.required]],
-      currency: ['TZX', [Validators.required]],
+      currency: [this.currencies[0].key, [Validators.required]],
       isPaidFee: [false],
       destination: [null, [Validators.required]],
       metadata: this.fb.array([

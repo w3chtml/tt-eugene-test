@@ -11,8 +11,7 @@
           <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="acc">Internal Account To Debit</nz-form-label>
           <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please enter value">
             <nz-select formControlName="acc"  id="acc">
-                <nz-option nzValue="acc01" nzLabel="Acc 01"></nz-option>
-                <nz-option nzValue="acc02" nzLabel="Acc 02"></nz-option>
+                <nz-option *ngFor="let account of accounts" [nzValue]="account.key" [nzLabel]="account.value"></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -28,8 +27,7 @@
             <nz-input-group [nzAddOnAfter]="addOnAfterTemplate">
               <ng-template #addOnAfterTemplate>
                 <nz-select formControlName="currency">
-                  <nz-option nzLabel="XYZ" nzValue="XYZ"></nz-option>
-                  <nz-option nzLabel="TZX" nzValue="TZX"></nz-option>
+                  <nz-option *ngFor="let currency of currencies" [nzValue]="currency.key" [nzLabel]="currency.value"></nz-option>
                 </nz-select>
               </ng-template>
               <input formControlName="amount" id="'amount'" nz-input type="number" />
@@ -48,8 +46,7 @@
             <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="destination">Destination</nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please enter value">
               <nz-select formControlName="destination"  id="destination">
-                  <nz-option nzValue="dest 01" nzLabel="dest  01"></nz-option>
-                  <nz-option nzValue="dest 02" nzLabel="dest  02"></nz-option>
+                <nz-option *ngFor="let destination of destinations" [nzValue]="destination.key" [nzLabel]="destination.value"></nz-option>
               </nz-select>
             </nz-form-control>
         </nz-form-item>

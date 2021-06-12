@@ -4,7 +4,6 @@ import { TransactionListModel } from "../models/transaction-list.model";
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService {
-    // @todo: add types
     create(newTransaction: TransactionCreateModel) {
         //
     }
