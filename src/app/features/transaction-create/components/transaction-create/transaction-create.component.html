@@ -1,1 +1,87 @@
-<h2>transaction create</h2>
+<h2>Transaction information</h2>
+<p>
+    <button routerLink="/list" nz-button nzType="primary">List</button>
+</p>
+
+<div nz-row>
+    <div nz-col nzSpan="12" nzOffset="6">
+
+      <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="acc">Internal Account To Debit</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please enter value">
+            <nz-select formControlName="acc"  id="acc">
+                <nz-option nzValue="acc01" nzLabel="Acc 01"></nz-option>
+                <nz-option nzValue="acc02" nzLabel="Acc 02"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="amount" nzRequired>Amount</nz-form-label>
+          <nz-form-control
+            [nzSm]="14"
+            [nzXs]="24"
+            [nzValidateStatus]="validateForm.controls['amount']"
+            nzErrorTip="Please input your amount"
+          >
+            <nz-input-group [nzAddOnAfter]="addOnAfterTemplate">
+              <ng-template #addOnAfterTemplate>
+                <nz-select formControlName="currency">
+                  <nz-option nzLabel="XYZ" nzValue="XYZ"></nz-option>
+                  <nz-option nzLabel="TZX" nzValue="TZX"></nz-option>
+                </nz-select>
+              </ng-template>
+              <input formControlName="amount" id="'amount'" nz-input />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="isPaidFee">Free paid by receiver</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please enter value">
+                <nz-switch formControlName="isPaidFee" id="isPaidFee"></nz-switch>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="destination">Destination</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please enter value">
+              <nz-select formControlName="destination"  id="destination">
+                  <nz-option nzValue="dest 01" nzLabel="dest  01"></nz-option>
+                  <nz-option nzValue="dest 02" nzLabel="dest  02"></nz-option>
+              </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item formArrayName="metadata">
+            <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="metadata">metadata</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Please enter value">
+
+                <div nz-row *ngFor="let metadataItem of metadata.controls; index as i">
+                    <ng-container [formGroupName]="i">
+                        <div nz-col nzSpan="8">
+                            <input nz-input formControlName="keyData" placeholder="Key #{{i+1}}" />
+                        </div>
+                        <div nz-col nzSpan="8" nzOffset="2">
+                            <input nz-input formControlName="valueData" placeholder="Value #{{i+1}}"/>
+                        </div>
+                        <div nz-col nzSpan="4" nzOffset="2" class="right">
+                            <button nz-button nzType="primary" ><i nz-icon nzType="delete"></i></button>
+                        </div>
+                    </ng-container>
+                </div>
+
+            </nz-form-control>
+        </nz-form-item>
+
+
+        <nz-form-item nz-row class="register-area">
+            <nz-form-control [nzSpan]="14" [nzOffset]="6" class="right">
+                <button nz-button>Cancel</button>
+                <button [disabled]="!validateForm.valid" nz-button nzType="primary" nz-col nzOffset="1">Create transaction</button>
+            </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+</div>
