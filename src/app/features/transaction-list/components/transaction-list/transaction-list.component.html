@@ -19,7 +19,7 @@
         <tr *ngFor="let data of rowSelectionTable.data">
             <td [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
             <td>{{ data.id }}</td>
-            <td>{{ data.date }}</td>
+            <td>{{ data.date | date: 'M/d/yyyy h:mm:ss' }}</td>
             <td>{{ data.currency }}</td>
             <td>{{ data.amount }}</td>
             <td>
