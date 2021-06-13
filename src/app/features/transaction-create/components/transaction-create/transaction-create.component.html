@@ -58,13 +58,13 @@
                 <div nz-row *ngFor="let metadataItem of metadata.controls; index as i">
                     <ng-container [formGroupName]="i">
                         <div nz-col nzSpan="8">
-                            <input #keyItem nz-input formControlName="keyData" placeholder="Key #{{i+1}}" />
+                            <input (keyup)="onMetaKeyDown(keyItem.value.length)" #keyItem nz-input formControlName="keyData" placeholder="Key #{{i+1}}" />
                         </div>
                         <div nz-col nzSpan="8" nzOffset="2">
-                            <input #valueItem nz-input formControlName="valueData" placeholder="Value #{{i+1}}"/>
+                            <input (keyup)="onMetaKeyDown(valueItem.value.length)" #valueItem nz-input formControlName="valueData" placeholder="Value #{{i+1}}"/>
                         </div>
                         <div nz-col nzSpan="4" nzOffset="2" class="right">
-                            <button [disabled]="!keyItem.value || !valueItem.value" nz-button nzType="primary" ><i nz-icon nzType="delete"></i></button>
+                            <button (click)="onDeleteMetaItem(i, $event)" [disabled]="!keyItem.value || !valueItem.value" nz-button ><i nz-icon nzType="delete"></i></button>
                         </div>
                     </ng-container>
                 </div>
@@ -75,7 +75,7 @@
 
         <nz-form-item nz-row class="register-area">
             <nz-form-control [nzSpan]="14" [nzOffset]="6" class="right">
-                <button nz-button>Cancel</button>
+                <button (click)="onCancel()" nz-button>Cancel</button>
                 <button [disabled]="!validateForm.valid" nz-button nzType="primary" nz-col nzOffset="1">Create transaction</button>
             </nz-form-control>
         </nz-form-item>

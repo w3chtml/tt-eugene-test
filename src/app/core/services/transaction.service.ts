@@ -8,6 +8,8 @@ export class TransactionService {
     create(newTransaction: TransactionCreateModel) {
         const list = this.getListFromStorage();
 
+        newTransaction.metadata = newTransaction.metadata.filter((metadataItem) => metadataItem.keyData || metadataItem.valueData);
+
         newTransaction.date = Date.now();
         newTransaction.id = this.generateId(list);
 
