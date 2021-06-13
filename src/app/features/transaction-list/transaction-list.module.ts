@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 import { TransactionListRoutingModule } from './transaction-list.routing.module';
@@ -16,7 +16,7 @@ import { NgZorroModule } from 'src/app/ng-zorro.module';
     TransactionListRoutingModule,
 
     NgZorroModule,
-
+    ReactiveFormsModule,
     FormsModule,
     CommonModule
   ],

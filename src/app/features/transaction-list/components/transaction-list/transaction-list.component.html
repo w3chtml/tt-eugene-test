@@ -1,9 +1,17 @@
 <h2>transaction list</h2>
 
-<p>
-    <button routerLink="/create" nz-button nzType="primary">Create</button>
-</p>
-
+<div nz-row>
+    <div nz-col nzSpan="2">
+        <button routerLink="/create" nz-button nzType="primary">Create</button>
+    </div>
+    <div nz-col nzSpan="4" nzOffset="1">
+        <input [formControl]="searchInput" name="searchInput" nz-input placeholder="Filter by ID" />
+    </div>
+    <div nz-col nzSpan="6" nzOffset="1">
+        <nz-range-picker [formControl]="rangeInput" [nzShowTime]="true"></nz-range-picker>
+    </div>
+</div>
+<br>
 <nz-table #rowSelectionTable nzShowSizeChanger [nzData]="listOfData" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
     <thead>
         <tr>
@@ -21,7 +29,7 @@
             <td>{{ data.id }}</td>
             <td>{{ data.date | date: 'M/d/yyyy h:mm:ss' }}</td>
             <td>{{ data.currency }}</td>
-            <td>{{ data.amount }}</td>
+            <td>{{ data.amount }} {{ data.currency }}</td>
             <td>
                 <button (click)="onItemRemove(data.id)" nz-button nzSize="large"><i nz-icon nzType="delete"></i></button>
             </td>

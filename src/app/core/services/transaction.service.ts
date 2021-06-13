@@ -1,9 +1,13 @@
-import { Injectable } from "@angular/core";
-import { TransactionCreateModel } from "../models/transaction-create.model";
-import { TransactionListModel } from "../models/transaction-list.model";
+import { Injectable } from '@angular/core';
+
+import { currencyList } from '@core/models/lists/currencies.list';
+import { StaticListModel } from '../models/list.model';
+import { TransactionCreateModel } from '../models/transaction-create.model';
+import { TransactionListModel } from '../models/transaction-list.model';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService {
+    listValues = {};
 
     create(newTransaction: TransactionCreateModel) {
         const list = this.getListFromStorage();
@@ -17,15 +21,26 @@ export class TransactionService {
         this.saveListToStorage(list);
     }
 
-    getList(): TransactionListModel[] {
-        const list = this.getListFromStorage();
+    getList(searchValue: string, rangeValue: Date[]): TransactionListModel[] {
+        let list = this.getListFromStorage();
+        if (searchValue) {
+            list = list.filter((item: TransactionCreateModel) => {
+                return ('' + item.id).indexOf(searchValue) !== -1
+            });
+        }
+        if (rangeValue && rangeValue.length) {
+            const from = (new Date(rangeValue[0])).getTime();
+            const to = (new Date(rangeValue[1])).getTime();
+            list = list.filter((item: TransactionCreateModel) => {
+                return item.date >= from && item.date <= to;
+            });
+        }
 
-        // @todo: shold we use here Static lists?
         return list.map((item: TransactionCreateModel) => {
             return {
                 id: item.id,
                 date: item.date,
-                currency: item.currency,
+                currency: this.getListValueByKey(item.currency),
                 amount: item.amount
             } as TransactionListModel
         });
@@ -36,6 +51,18 @@ export class TransactionService {
         let list = this.getListFromStorage();
         list = list.filter((item) => item.id !== id);
         this.saveListToStorage(list);
+    }
+
+    private getListValueByKey(key: string) {
+        if (!this.listValues[key]) {
+            currencyList.map((item: StaticListModel) => {
+                if (item.key === key) {
+                    this.listValues[key] = item.value;
+                }
+            });
+        }
+
+        return this.listValues[key];
     }
 
     private saveListToStorage(list: TransactionCreateModel[]) {

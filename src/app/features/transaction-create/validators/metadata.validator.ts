@@ -1,4 +1,4 @@
-import { FormArray, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { FormArray, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export function metadataValidator(): ValidatorFn {
   return (arr: FormArray) : ValidationErrors | null => {
